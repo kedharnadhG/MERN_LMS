@@ -1,26 +1,37 @@
 import express from "express";
 import multer from "multer";
-import {
-  uploadMediaToCloudinary,
-  deleteMediaFromCloudinary,
-} from "../../helpers/cloudinary.js";
+// import {
+//   uploadMediaToCloudinary,
+//   deleteMediaFromCloudinary,
+// } from "../../helpers/cloudinary.js";
+import { v2 as cloudinary } from "cloudinary";
+import dotenv from "dotenv";
 import fs from "fs";
+import { CloudinaryStorage } from "multer-storage-cloudinary";
+dotenv.config();
+
+cloudinary.config({
+  cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+  api_key: process.env.CLOUDINARY_API_KEY,
+  api_secret: process.env.CLOUDINARY_API_SECRET,
+});
+
+const storage = new CloudinaryStorage({
+  cloudinary: cloudinary,
+  params: {
+    folder: "MERN_LMS",
+    allowed_formats: ["jpg", "png", "jpeg", "gif", "pdf", "mp4"],
+    resource_type: "auto",
+  },
+});
+
+const upload = multer({ storage: storage });
 
 const router = express.Router();
 
-const upload = multer({ dest: "uploads/" });
-
-const deleteLocalFile = (filePath) => {
-  fs.unlink(filePath, (err) => {
-    if (err) console.error("Error deleting file:", err);
-  });
-};
-
 router.post("/upload", upload.single("file"), async (req, res) => {
   try {
-    const result = await uploadMediaToCloudinary(req.file.path);
-
-    deleteLocalFile(req.file.path);
+    const result = req.file;
 
     res.status(200).json({
       success: true,
@@ -47,7 +58,7 @@ router.delete("/delete/:id", async (req, res) => {
       });
     }
 
-    await deleteMediaFromCloudinary(decodedId);
+    await cloudinary.uploader.destroy(decodedId);
 
     res.status(200).json({
       success: true,
@@ -64,13 +75,7 @@ router.delete("/delete/:id", async (req, res) => {
 
 router.post("/bulk-upload", upload.array("files", 10), async (req, res) => {
   try {
-    const results = await Promise.all(
-      req.files.map(async (file) => {
-        const result = await uploadMediaToCloudinary(file.path);
-        deleteLocalFile(file.path);
-        return result;
-      })
-    );
+    const results = req.files;
 
     res.status(200).json({
       success: true,
