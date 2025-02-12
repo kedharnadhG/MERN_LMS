@@ -4,14 +4,23 @@ import {
   uploadMediaToCloudinary,
   deleteMediaFromCloudinary,
 } from "../../helpers/cloudinary.js";
+import fs from "fs";
 
 const router = express.Router();
 
 const upload = multer({ dest: "uploads/" });
 
+const deleteLocalFile = (filePath) => {
+  fs.unlink(filePath, (err) => {
+    if (err) console.error("Error deleting file:", err);
+  });
+};
+
 router.post("/upload", upload.single("file"), async (req, res) => {
   try {
     const result = await uploadMediaToCloudinary(req.file.path);
+
+    deleteLocalFile(req.file.path);
 
     res.status(200).json({
       success: true,
@@ -56,7 +65,11 @@ router.delete("/delete/:id", async (req, res) => {
 router.post("/bulk-upload", upload.array("files", 10), async (req, res) => {
   try {
     const results = await Promise.all(
-      req.files.map((file) => uploadMediaToCloudinary(file.path))
+      req.files.map(async (file) => {
+        const result = await uploadMediaToCloudinary(file.path);
+        deleteLocalFile(file.path);
+        return result;
+      })
     );
 
     res.status(200).json({
