@@ -2,7 +2,7 @@
   "version": 2,
   "name": "mern-lms-backend",
   "builds": [{ "src": "server.js", "use": "@vercel/node" }],
-  "routes": [{ "src": "/api/(.*)", "dest": "/server.js" }],
+  "routes": [{ "src": "/(.*)", "dest": "/server.js" }],
   "installCommand": "npm install --legacy-peer-deps",
   "devCommand": "npm run dev"
 }
