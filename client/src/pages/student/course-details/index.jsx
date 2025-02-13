@@ -115,14 +115,14 @@ function StudentViewCourseDetailsPage() {
     const response = await createPaymentService(paymentPayload);
 
     if (response?.success) {
-      console.log(response?.data?.approvalUrl);
+      // console.log(response?.data?.approvalUrl);
       sessionStorage.setItem(
         "currentOrderId",
         JSON.stringify(response?.data?.orderId)
       );
 
       setApprovalUrl(response?.data?.approvalUrl);
-      console.log(approvalUrl, "approvalUrl");
+      // console.log(approvalUrl, "approvalUrl");
     }
   }
 

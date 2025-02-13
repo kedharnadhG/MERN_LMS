@@ -97,7 +97,7 @@ function StudentViewCoursesPage() {
   }
 
   async function handleCourseNavigation(getCurrentcourseId) {
-    console.log(getCurrentcourseId);
+    // console.log(getCurrentcourseId);
     const response = await checkCoursePurchaseInfoService(
       getCurrentcourseId,
       auth?.user?._id
@@ -134,7 +134,7 @@ function StudentViewCoursesPage() {
     }
   }, [filters, sort]);
 
-  console.log(filters, "filters");
+  // console.log(filters, "filters");
 
   return (
     <div className="container mx-auto p-4">

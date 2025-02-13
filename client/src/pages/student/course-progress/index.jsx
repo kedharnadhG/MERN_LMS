@@ -69,7 +69,7 @@ function StudentViewCourseProgressPage() {
             setCurrentLecture(response?.data?.courseDetails?.curriculum[0]);
           } else {
             //TODO: done
-            console.log("logging here");
+            // console.log("logging here");
 
             const lastIndexOfViewedAsTrue =
               response?.data?.progress.reduceRight((acc, obj, index) => {
@@ -135,7 +135,7 @@ function StudentViewCourseProgressPage() {
     }
   }, [showConfetti]);
 
-  console.log(currentLecture, "currentLecture");
+  // console.log(currentLecture, "currentLecture");
 
   return (
     <div className="flex flex-col h-screen bg-[#1c1d1f] text-white">

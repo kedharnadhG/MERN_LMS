@@ -55,7 +55,7 @@ function InstructorDashboardPage() {
     sessionStorage.clear();
   };
 
-  console.log(instructorCoursesList, "instructorCoursesList");
+  // console.log(instructorCoursesList, "instructorCoursesList");
 
   return (
     <div className="flex h-full min-h-screen bg-gray-100">

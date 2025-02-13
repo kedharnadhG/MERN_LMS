@@ -95,7 +95,7 @@ function AddNewCoursePage() {
       setCurrentEditedCourseId(null);
     }
 
-    console.log(courseFinalFormData, "courseFinalFormData");
+    // console.log(courseFinalFormData, "courseFinalFormData");
   };
 
   const fetchCurrentCourseDetails = async () => {

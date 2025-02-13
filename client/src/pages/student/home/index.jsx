@@ -33,7 +33,7 @@ function StudentHomePage() {
   }
 
   async function handleCourseNavigation(getCurrentcourseId) {
-    console.log(getCurrentcourseId);
+    // console.log(getCurrentcourseId);
     const response = await checkCoursePurchaseInfoService(
       getCurrentcourseId,
       auth?.user?._id
@@ -49,7 +49,7 @@ function StudentHomePage() {
   }
 
   async function handleCourseNavigationToCoursesPage(getCurrentCategoryId) {
-    console.log(getCurrentCategoryId, "getCurrentCategoryId");
+    // console.log(getCurrentCategoryId, "getCurrentCategoryId");
     sessionStorage.removeItem("filters");
     const currentFilter = { category: [getCurrentCategoryId] };
     sessionStorage.setItem("filters", JSON.stringify(currentFilter));

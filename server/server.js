@@ -21,7 +21,7 @@ const app = express();
 const PORT = process.env.PORT || 5000;
 const MONGO_URI = process.env.MONGO_URI;
 
-console.log("CLIENT_URL:", process.env.CLIENT_URL);
+// console.log("CLIENT_URL:", process.env.CLIENT_URL);
 
 app.use(
   cors({
