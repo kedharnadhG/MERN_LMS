@@ -31,7 +31,7 @@ app.use(
     credentials: true,
   })
 );
-app.options("*", cors());
+// app.options("*", cors());
 
 app.use(express.json());
 
@@ -44,6 +44,12 @@ mongoose
   .catch((err) => {
     console.error("Error connecting to MongoDB:", err);
   });
+
+app.get("/favicon.ico", (req, res) => res.status(204).end());
+
+app.get("/", (req, res) => {
+  res.status(200).json({ message: "Server is running!" });
+});
 
 // Routes configuration
 app.use("/auth", authRoutes);
