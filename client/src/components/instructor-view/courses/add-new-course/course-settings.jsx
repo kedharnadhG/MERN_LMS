@@ -35,7 +35,7 @@ function CourseSettings() {
         if (response.success) {
           setCourseLandingFormData({
             ...courselandingFormData,
-            image: response?.data?.url,
+            image: response?.data?.path,
           });
         }
 

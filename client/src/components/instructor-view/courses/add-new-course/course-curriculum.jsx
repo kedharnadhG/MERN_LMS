@@ -81,8 +81,8 @@ function CourseCurriculum() {
           let cpyCourseCurriculumFormData = [...courseCurriculumFormData];
           cpyCourseCurriculumFormData[currIndex] = {
             ...cpyCourseCurriculumFormData[currIndex],
-            videoUrl: response?.data?.url,
-            public_id: response?.data?.public_id,
+            videoUrl: response?.data?.path,
+            public_id: response?.data?.filename,
           };
           setCourseCurriculumFormData(cpyCourseCurriculumFormData);
           setMediaUploadProgress(false);
@@ -174,8 +174,8 @@ function CourseCurriculum() {
         cpyCourseCurriculumFormData = [
           ...cpyCourseCurriculumFormData,
           ...response?.data.map((item, index) => ({
-            videoUrl: item?.url,
-            public_id: item?.public_id,
+            videoUrl: item?.path,
+            public_id: item?.filename,
             title: `Lecture ${
               cpyCourseCurriculumFormData.length + (index + 1)
             }`,
@@ -213,6 +213,7 @@ function CourseCurriculum() {
     }
   };
 
+  console.log(courseCurriculumFormData, "courseCurriculumFormData");
   return (
     <Card>
       <CardHeader className="flex justify-between flex-row">

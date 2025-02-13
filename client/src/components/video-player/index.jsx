@@ -19,8 +19,8 @@ function VideoPlayer({
   width = "100%",
   height = "100%",
   url,
-  onProgressUpdate,
-  progressData,
+  onProgressUpdate = () => {},
+  progressData = {},
 }) {
   const [playing, setPlaying] = useState(false);
   const [volume, setVolume] = useState(0.5);
